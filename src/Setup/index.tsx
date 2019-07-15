@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ShortCountry } from "./types";
-import { string } from "prop-types";
-import { type } from "os";
+import { ShortCountry } from "../types";
+import CountrySelector from "./CountrySelector";
+import Selector from "./Selector";
 
 interface Props {
   countries: Array<ShortCountry>;
@@ -36,6 +36,10 @@ const QuizSetup: React.FC<Props> = ({ countries }) => {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const isValid = selectedCountries.length > 0 && selectedQuestions.length > 0;
 
+  console.log(selectedCountries);
+  console.log(selectedQuestions);
+  console.log("======");
+
   return (
     <form className="QuizSetup">
       <fieldset>
@@ -54,28 +58,17 @@ const QuizSetup: React.FC<Props> = ({ countries }) => {
           )
           .map(country => {
             return (
-              <label>
-                <input
-                  type="checkbox"
-                  value={country.code}
-                  name={country.code}
-                  onChange={e => {
-                    if (e.target.checked) {
-                      setSelectedCountries([
-                        ...selectedCountries,
-                        ...[e.target.value]
-                      ]);
-                    } else {
-                      setSelectedCountries(
-                        selectedCountries.filter(
-                          country => country !== e.target.value
-                        )
-                      );
-                    }
-                  }}
-                />
-                {country.name}
-              </label>
+              <Selector
+                {...country}
+                onSelect={code => {
+                  setSelectedCountries([...selectedCountries, ...[code]]);
+                }}
+                onDeselect={code =>
+                  setSelectedCountries(
+                    selectedCountries.filter(code => code !== country.code)
+                  )
+                }
+              />
             );
           })}
       </fieldset>
@@ -83,28 +76,17 @@ const QuizSetup: React.FC<Props> = ({ countries }) => {
         <legend>What type of questions do you want?</legend>
         {questionTypes.map(question => {
           return (
-            <label>
-              <input
-                type="checkbox"
-                value={question.code}
-                name={question.name}
-                onChange={e => {
-                  if (e.target.checked) {
-                    setSelectedQuestions([
-                      ...selectedQuestions,
-                      ...[e.target.value]
-                    ]);
-                  } else {
-                    setSelectedQuestions(
-                      selectedQuestions.filter(
-                        question => question !== e.target.value
-                      )
-                    );
-                  }
-                }}
-              />
-              {`Questions about ${question.name}`}
-            </label>
+            <Selector
+              {...question}
+              onSelect={code => {
+                setSelectedQuestions([...selectedQuestions, ...[code]]);
+              }}
+              onDeselect={code =>
+                setSelectedQuestions(
+                  selectedQuestions.filter(code => question.code !== code)
+                )
+              }
+            />
           );
         })}
       </fieldset>

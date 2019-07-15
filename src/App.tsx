@@ -2,7 +2,7 @@ import React from "react";
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import QuizSetup from "./QuizSetup";
+import QuizSetup from "./Setup";
 import { ShortCountry } from "./types";
 
 const client = new ApolloClient({
