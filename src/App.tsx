@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ApolloClient from "apollo-boost";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+import QuizSetup from "./QuizSetup";
+import { ShortCountry } from "./types";
+
+const client = new ApolloClient({
+  uri: "https://countries.trevorblades.com"
+});
+
+// write a GraphQL query that asks for names and codes for all countries
+const GET_COUNTRIES = gql`
+  {
+    countries {
+      name
+      code
+    }
+  }
+`;
+
+interface SetupData {
+  countries: Array<ShortCountry>;
+}
+
+interface Variables {
+  first: number;
+}
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Query<SetupData, Variables> query={GET_COUNTRIES} client={client}>
+        {({ loading, error, data }) => {
+          if (loading) return <p>Loading...</p>;
+          if (error) return <p>{error.message}</p>;
+          return <QuizSetup countries={data.countries} />;
+        }}
+      </Query>
     </div>
   );
-}
+};
 
 export default App;
