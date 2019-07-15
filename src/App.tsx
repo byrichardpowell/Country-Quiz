@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
@@ -28,15 +28,26 @@ interface Variables {
 }
 
 const App: React.FC = () => {
+  const [quizSetupObject, setQuizSetupOject] = useState(null);
+
   return (
     <div className="App">
-      <Query<SetupData, Variables> query={GET_COUNTRIES} client={client}>
-        {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>{error.message}</p>;
-          return <QuizSetup countries={data.countries} />;
-        }}
-      </Query>
+      {!quizSetupObject ? (
+        <Query<SetupData, Variables> query={GET_COUNTRIES} client={client}>
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>{error.message}</p>;
+            return (
+              <QuizSetup
+                countries={data.countries}
+                didSetupQuiz={setQuizSetupOject}
+              />
+            );
+          }}
+        </Query>
+      ) : (
+        `Let's start the quiz ${JSON.stringify(quizSetupObject)}`
+      )}
     </div>
   );
 };

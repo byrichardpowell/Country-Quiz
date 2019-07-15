@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { ShortCountry } from "../types";
-import CountrySelector from "./CountrySelector";
 import Selector from "./Selector";
 
 interface Props {
   countries: Array<ShortCountry>;
+  didSetupQuiz: Function;
 }
 
 const questionTypes = [
@@ -30,18 +30,23 @@ const questionTypes = [
   }
 ];
 
-const QuizSetup: React.FC<Props> = ({ countries }) => {
+const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
   const [search, setSearch] = useState("");
   const [selectedCountries, setSelectedCountries] = useState([]);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const isValid = selectedCountries.length > 0 && selectedQuestions.length > 0;
 
-  console.log(selectedCountries);
-  console.log(selectedQuestions);
-  console.log("======");
-
   return (
-    <form className="QuizSetup">
+    <form
+      className="QuizSetup"
+      onSubmit={e => {
+        e.preventDefault();
+        didSetupQuiz({
+          selectedQuestions: selectedQuestions,
+          selectedCountries: selectedCountries
+        });
+      }}
+    >
       <fieldset>
         <legend>Which countries should be in the quiz?</legend>
         <input
