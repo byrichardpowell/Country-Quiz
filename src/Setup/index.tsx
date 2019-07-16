@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { ShortCountry } from "../types";
 import Selector from "./Selector";
 
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
+
 interface Props {
   countries: Array<ShortCountry>;
   didSetupQuiz: Function;
 }
+
+const wrapper = css``;
 
 const questionTypes = [
   {
@@ -38,7 +43,7 @@ const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
 
   return (
     <form
-      className="QuizSetup"
+      css={wrapper}
       onSubmit={e => {
         e.preventDefault();
         didSetupQuiz({
