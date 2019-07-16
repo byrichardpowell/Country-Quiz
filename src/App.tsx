@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import QuizSetup from "./Setup";
 import { ShortCountry } from "./types";
-import { Color, Universal } from "./CssVariables";
+import { Color, Universal } from "./Css";
 
 /** @jsx jsx */
 import { Global, jsx, css } from "@emotion/core";
