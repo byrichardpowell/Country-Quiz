@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import { ShortCountry } from "../types";
+import { ShortCountries } from "../types";
 import Selector from "./Selector";
 import { Color } from "../Css";
 
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 
-interface Props {
-  countries: Array<ShortCountry>;
+interface Props extends ShortCountries {
   didSetupQuiz: Function;
 }
-
-const wrapper = css``;
 
 const questionTypes = [
   {
@@ -82,12 +79,11 @@ const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
 
   return (
     <form
-      css={wrapper}
       onSubmit={e => {
         e.preventDefault();
         didSetupQuiz({
-          selectedQuestions: selectedQuestions,
-          selectedCountries: selectedCountries
+          selectedQuestions,
+          selectedCountries
         });
       }}
     >
