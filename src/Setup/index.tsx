@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ShortCountries } from "../types";
 import Selector from "./Selector";
 import { Color } from "../Css";
+import { questionTypes } from "../Helpers/questionTypes";
 
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
@@ -9,29 +10,6 @@ import { jsx, css } from "@emotion/core";
 interface Props extends ShortCountries {
   didSetupQuiz: Function;
 }
-
-const questionTypes = [
-  {
-    code: "phone",
-    name: "phone numbers"
-  },
-  {
-    code: "continent",
-    name: "continents"
-  },
-  {
-    code: "currency",
-    name: "currency"
-  },
-  {
-    code: "languages",
-    name: "languages"
-  },
-  {
-    code: "emoji",
-    name: "flags"
-  }
-];
 
 const listWrapperCss = css`
   max-width: 280px;

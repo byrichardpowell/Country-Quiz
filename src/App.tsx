@@ -5,6 +5,7 @@ import { Query } from "react-apollo";
 import QuizSetup from "./Setup";
 import { ShortCountries, FullCountries } from "./types";
 import { Color, Universal } from "./Css";
+import Questions from "./Questions";
 
 /** @jsx jsx */
 import { Global, jsx, css } from "@emotion/core";
@@ -34,7 +35,7 @@ const h1Css = css`
   color: ${Color.dark};
 `;
 
-const getLongCountriesQuery = (quizSetupObject): String => {
+const getLongCountriesQuery = (quizSetup): String => {
   const fieldValues = {
     phone: `phone
     `,
@@ -52,12 +53,9 @@ const getLongCountriesQuery = (quizSetupObject): String => {
     `
   };
 
-  const fields = quizSetupObject.selectedQuestions.reduce(
-    (fields, question) => {
-      return (fields += fieldValues[question]);
-    },
-    ""
-  );
+  const fields = quizSetup.selectedQuestions.reduce((fields, question) => {
+    return (fields += fieldValues[question]);
+  }, "");
 
   return gql`
     {
@@ -71,14 +69,14 @@ const getLongCountriesQuery = (quizSetupObject): String => {
 };
 
 const App: React.FC = () => {
-  const [quizSetupObject, setQuizSetupOject] = useState(null);
+  const [quizSetup, setQuizSetupOject] = useState(null);
 
   return (
     <div css={appCss}>
       <Global styles={Universal} />
       <h1 css={h1Css}>A Country Quiz</h1>
       <p>Test your knowledge of countries</p>
-      {!quizSetupObject ? (
+      {!quizSetup ? (
         <Query<ShortCountries> query={GET_SHORT_COUNTRIES} client={client}>
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
@@ -93,13 +91,15 @@ const App: React.FC = () => {
         </Query>
       ) : (
         <Query<FullCountries>
-          query={getLongCountriesQuery(quizSetupObject)}
+          query={getLongCountriesQuery(quizSetup)}
           client={client}
         >
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>{error.message}</p>;
-            return <p>{JSON.stringify(data.countries)}</p>;
+            return (
+              <Questions countries={data.countries} quizSetup={quizSetup} />
+            );
           }}
         </Query>
       )}
