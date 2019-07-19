@@ -21,6 +21,14 @@ const getQuestion = (questionCode, country) => {
   }
 };
 
+const getOptions = (questionCode, countries) => {
+  return [1, 2, 3].map(index => {
+    return countries[Math.floor(Math.random() * countries.length)][
+      questionCode
+    ];
+  });
+};
+
 const Questions: React.FC<Props> = ({ countries, quizSetup }) => {
   console.log(quizSetup);
 
@@ -30,14 +38,19 @@ const Questions: React.FC<Props> = ({ countries, quizSetup }) => {
       quizSetup.selectedQuestions[
         Math.floor(Math.random() * quizSetup.selectedQuestions.length)
       ];
-    return getQuestion(questionCode, country);
+    return {
+      question: getQuestion(questionCode, country),
+      options: getOptions(questionCode, countries)
+    };
   });
 
   return (
     <div>
       <ul>
         {questions.map(question => (
-          <li>{question}</li>
+          <li>
+            {question.question} {question.options.join("")}{" "}
+          </li>
         ))}
       </ul>
       <p>{JSON.stringify(countries)}</p>

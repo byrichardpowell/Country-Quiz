@@ -97,6 +97,7 @@ const App: React.FC = () => {
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>{error.message}</p>;
+
             return (
               <Questions countries={data.countries} quizSetup={quizSetup} />
             );
