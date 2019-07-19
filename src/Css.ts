@@ -51,4 +51,7 @@ export const Universal = css`
     font-size: 14px;
     cursor: pointer;
   }
+  button[disabled] {
+    opacity: 0.5;
+  }
 `;
