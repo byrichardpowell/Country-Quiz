@@ -31,7 +31,8 @@ const Questions: React.FC<Props> = ({ question, options, didSubmit }) => {
                 type="radio"
                 name="option"
                 value={option.name}
-                onChange={e => setAnswer(e.target.value)}
+                onChange={e => setAnswer(option)}
+                checked={answer && answer.name === option.name}
               />
               {option.name}
             </label>
