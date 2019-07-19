@@ -6,7 +6,7 @@ import QuizSetup from "./Setup";
 import { ShortCountries, FullCountries } from "./types";
 import { Color, Universal } from "./Css";
 import Questions from "./Questions";
-
+import { isString, shuffle, sample, sampleSize, reject } from "lodash";
 /** @jsx jsx */
 import { Global, jsx, css } from "@emotion/core";
 
@@ -68,6 +68,41 @@ const getLongCountriesQuery = (quizSetup): String => {
   `;
 };
 
+const getQuestion = (questionCode, country) => {
+  switch (questionCode) {
+    case "phone":
+      return `What phone code does ${country.name} have?`;
+    case "continent":
+      return `What continent does ${country.name} belong to?`;
+    case "currency":
+      return `What currency does ${country.name} use?`;
+    case "languages":
+      return `What is one language ${country.name} speaks?`;
+    case "emoji":
+      return `What is the flag of ${country.name}?`;
+  }
+};
+
+const getOptions = (questionCode, country, countries) => {
+  const falseOptions = sampleSize(
+    reject(countries, { code: country.code }),
+    3
+  ).map(index => {
+    const option = sample(countries)[questionCode];
+    return {
+      ...(isString(option) ? { name: option } : option),
+      correct: false
+    };
+  });
+  const trueOption = {
+    correct: true,
+    name: isString(country[questionCode])
+      ? country[questionCode]
+      : country[questionCode].name
+  };
+  return shuffle([...falseOptions, ...[trueOption]]);
+};
+
 const App: React.FC = () => {
   const [quizSetup, setQuizSetupOject] = useState(null);
 
@@ -98,9 +133,21 @@ const App: React.FC = () => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>{error.message}</p>;
 
-            return (
-              <Questions countries={data.countries} quizSetup={quizSetup} />
+            const questions = quizSetup.selectedCountries.map(
+              selectedCountry => {
+                const country = data.countries.find(
+                  country => country.code === selectedCountry
+                );
+                const questionCode = sample(quizSetup.selectedQuestions);
+
+                return {
+                  question: getQuestion(questionCode, country),
+                  options: getOptions(questionCode, country, data.countries)
+                };
+              }
             );
+
+            return <Questions questions={questions} />;
           }}
         </Query>
       )}

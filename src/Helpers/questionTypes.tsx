@@ -1,7 +1,7 @@
 export const questionTypes = [
   {
     code: "phone",
-    name: "phone numbers"
+    name: "international phone codes"
   },
   {
     code: "continent",
