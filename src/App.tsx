@@ -147,7 +147,7 @@ const App: React.FC = () => {
               }
             );
 
-            return <Questions questions={questions} />;
+            return <Questions questions={questions} didFinish={console.log} />;
           }}
         </Query>
       )}

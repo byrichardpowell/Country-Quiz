@@ -4,6 +4,7 @@ interface Props {
   question: string;
   options: Array<{
     name: string;
+    correct: boolean;
   }>;
   didSubmit: Function;
 }
@@ -14,7 +15,10 @@ const Questions: React.FC<Props> = ({ question, options, didSubmit }) => {
     <form
       onSubmit={e => {
         e.preventDefault();
-        didSubmit(options.find(option => option.name === answer));
+        didSubmit({
+          givenAnswer: options.find(option => option.name === answer),
+          correctAnswer: options.find(option => option.correct === true)
+        });
         setAnswer(null);
       }}
     >
