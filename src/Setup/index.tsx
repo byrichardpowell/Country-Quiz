@@ -81,8 +81,8 @@ const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
             {countries
               .filter(
                 country =>
-                  country.name.indexOf(search) > -1 ||
-                  country.code.indexOf(search) > -1
+                  country.name.toLowerCase().indexOf(search) > -1 ||
+                  country.code.toLowerCase().indexOf(search) > -1
               )
               .map(country => {
                 return (
