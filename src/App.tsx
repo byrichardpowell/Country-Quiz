@@ -7,7 +7,15 @@ import { ShortCountries, FullCountries } from "./types";
 import { Color, Universal } from "./Css";
 import Questions from "./Questions";
 import Results from "./Results";
-import { isString, isObject, shuffle, sample, sampleSize, find } from "lodash";
+import {
+  isString,
+  isObject,
+  shuffle,
+  sample,
+  sampleSize,
+  find,
+  isArray
+} from "lodash";
 /** @jsx jsx */
 import { Global, jsx, css } from "@emotion/core";
 
@@ -69,15 +77,20 @@ const getLongCountriesQuery = (quizSetup): String => {
   `;
 };
 
-const getOptions = (questionCode, questionCountry, countries) => {
-  const falseOptions = countries.reduce((options, country) => {
-    const questionCountryOption = isString(questionCountry[questionCode])
-      ? questionCountry[questionCode]
-      : questionCountry[questionCode].name;
+const getOptionName = (country, questionCode) => {
+  if (isString(country[questionCode])) {
+    return country[questionCode];
+  }
+  if (isArray(country[questionCode]) && country[questionCode].length) {
+    return country[questionCode][0].name;
+  }
+  return country[questionCode].name;
+};
 
-    const thisCountryOption = isString(country[questionCode])
-      ? country[questionCode]
-      : country[questionCode].name;
+const getOptions = (questionCode, questionCountry, countries) => {
+  const uniqFalseOptions = countries.reduce((options, country) => {
+    const questionCountryOption = getOptionName(questionCountry, questionCode);
+    const thisCountryOption = getOptionName(country, questionCode);
 
     if (questionCountryOption !== thisCountryOption) {
       if (isObject(find(options, ["name", thisCountryOption])) === false) {
@@ -92,11 +105,9 @@ const getOptions = (questionCode, questionCountry, countries) => {
 
   const trueOption = {
     correct: true,
-    name: isString(questionCountry[questionCode])
-      ? questionCountry[questionCode]
-      : questionCountry[questionCode].name
+    name: getOptionName(questionCountry, questionCode)
   };
-  return shuffle([...sampleSize(falseOptions, 3), ...[trueOption]]);
+  return shuffle([...sampleSize(uniqFalseOptions, 3), ...[trueOption]]);
 };
 
 const App: React.FC = () => {
