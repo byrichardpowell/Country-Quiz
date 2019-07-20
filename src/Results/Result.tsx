@@ -1,6 +1,13 @@
 import React from "react";
 import { Answer } from "../types";
 
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
+
+const answerCss = css`
+  padding: 0 0 10px 0;
+`;
+
 const getAnswerIntro = (correctAnswer, givenAnswer): string => {
   return correctAnswer.name === givenAnswer.name ? "Correct" : "Sorry";
 };
@@ -38,8 +45,8 @@ const Result: React.FC<Answer> = ({
   correctAnswer
 }) => {
   return (
-    <li>
-      {getAnswerIntro(correctAnswer, givenAnswer)}{" "}
+    <li css={answerCss}>
+      <strong>{getAnswerIntro(correctAnswer, givenAnswer)}</strong>{" "}
       {getAnswerText(questionCode, country, correctAnswer)}{" "}
       {getAnswerOutro(correctAnswer, givenAnswer)}
     </li>

@@ -101,7 +101,7 @@ const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
         </div>
       </fieldset>
       <fieldset>
-        <legend>What type of questions do you want?</legend>
+        <legend>What topics do you want questions on?</legend>
         {questionTypes.map(question => {
           return (
             <Selector

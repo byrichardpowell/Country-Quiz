@@ -162,7 +162,15 @@ const App: React.FC = () => {
           }}
         </Query>
       ) : null}
-      {answers ? <Results answers={answers} /> : null}
+      {answers ? (
+        <Results
+          answers={answers}
+          reset={() => {
+            setQuizSetupOject(null);
+            setAnswers(null);
+          }}
+        />
+      ) : null}
     </div>
   );
 };

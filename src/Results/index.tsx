@@ -2,9 +2,19 @@ import React from "react";
 import Result from "./Result";
 import { Answer } from "../types";
 
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
+
 interface Props {
   answers: Array<Answer>;
+  reset: Function;
 }
+
+const listCss = css`
+  padding: 10px 0 40px 0;
+  margin: 0;
+  list-style-type: none;
+`;
 
 const getIntro = (percentCorrect: number): string => {
   if (percentCorrect === 1) {
@@ -30,7 +40,7 @@ const getScoreOutro = (percentCorrect: number): string => {
   }
 };
 
-const Results: React.FC<Props> = ({ answers }) => {
+const Results: React.FC<Props> = ({ answers, reset }) => {
   const correctAnswerCount = answers.filter(answer => {
     return answer.givenAnswer.correct === true;
   }).length;
@@ -42,11 +52,20 @@ const Results: React.FC<Props> = ({ answers }) => {
       <p>{`${correctAnswerCount} out of ${answers.length}. ${getScoreOutro(
         percentCorrect
       )}`}</p>
-      <ol>
+      <ol css={listCss}>
         {answers.map(answer => {
           return <Result {...answer} />;
         })}
       </ol>
+      <button
+        type="button"
+        onClick={e => {
+          e.preventDefault();
+          reset();
+        }}
+      >
+        Start a new quiz
+      </button>
     </div>
   );
 };

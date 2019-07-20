@@ -63,5 +63,6 @@ export const Universal = css`
   }
   button[disabled] {
     opacity: 0.5;
+    cursor: default;
   }
 `;
