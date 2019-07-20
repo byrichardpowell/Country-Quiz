@@ -6,6 +6,7 @@ import QuizSetup from "./Setup";
 import { ShortCountries, FullCountries } from "./types";
 import { Color, Universal } from "./Css";
 import Questions from "./Questions";
+import Results from "./Results";
 import { isString, shuffle, sample, sampleSize, reject } from "lodash";
 /** @jsx jsx */
 import { Global, jsx, css } from "@emotion/core";
@@ -105,6 +106,7 @@ const getOptions = (questionCode, country, countries) => {
 
 const App: React.FC = () => {
   const [quizSetup, setQuizSetupOject] = useState(null);
+  const [answers, setAnswers] = useState(null);
 
   return (
     <div css={appCss}>
@@ -124,7 +126,8 @@ const App: React.FC = () => {
             );
           }}
         </Query>
-      ) : (
+      ) : null}
+      {quizSetup && !answers ? (
         <Query<FullCountries>
           query={getLongCountriesQuery(quizSetup)}
           client={client}
@@ -147,10 +150,11 @@ const App: React.FC = () => {
               }
             );
 
-            return <Questions questions={questions} didFinish={console.log} />;
+            return <Questions questions={questions} didFinish={setAnswers} />;
           }}
         </Query>
-      )}
+      ) : null}
+      {answers ? <Results answers={answers} /> : null}
     </div>
   );
 };

@@ -16,7 +16,7 @@ const Questions: React.FC<Props> = ({ question, options, didSubmit }) => {
       onSubmit={e => {
         e.preventDefault();
         didSubmit({
-          givenAnswer: options.find(option => option.name === answer),
+          givenAnswer: options.find(option => option.name === answer.name),
           correctAnswer: options.find(option => option.correct === true)
         });
         setAnswer(null);
