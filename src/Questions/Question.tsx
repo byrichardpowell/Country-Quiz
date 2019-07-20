@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { FullCountry } from "../types";
 
 interface Props {
-  question: string;
+  country: FullCountry;
+  questionCode: string;
   options: Array<{
     name: string;
     correct: boolean;
@@ -9,7 +11,27 @@ interface Props {
   didSubmit: Function;
 }
 
-const Questions: React.FC<Props> = ({ question, options, didSubmit }) => {
+const getQuestion = (questionCode, country) => {
+  switch (questionCode) {
+    case "phone":
+      return `What phone code does ${country.name} have?`;
+    case "continent":
+      return `What continent does ${country.name} belong to?`;
+    case "currency":
+      return `What currency does ${country.name} use?`;
+    case "languages":
+      return `What is one language ${country.name} speaks?`;
+    case "emoji":
+      return `What is the flag of ${country.name}?`;
+  }
+};
+
+const Questions: React.FC<Props> = ({
+  questionCode,
+  country,
+  options,
+  didSubmit
+}) => {
   const [answer, setAnswer] = useState(null);
   return (
     <form
@@ -23,7 +45,7 @@ const Questions: React.FC<Props> = ({ question, options, didSubmit }) => {
       }}
     >
       <fieldset>
-        <legend>{question}</legend>
+        <legend>{getQuestion(questionCode, country)}</legend>
         {options.map(option => {
           return (
             <label>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Question from "./Question";
+import { FullCountry } from "../types";
 
 interface Props {
   questions: Array<{
-    question: string;
+    country: FullCountry;
+    questionCode: string;
     options: Array<{
       name: string;
       correct: boolean;

@@ -69,21 +69,6 @@ const getLongCountriesQuery = (quizSetup): String => {
   `;
 };
 
-const getQuestion = (questionCode, country) => {
-  switch (questionCode) {
-    case "phone":
-      return `What phone code does ${country.name} have?`;
-    case "continent":
-      return `What continent does ${country.name} belong to?`;
-    case "currency":
-      return `What currency does ${country.name} use?`;
-    case "languages":
-      return `What is one language ${country.name} speaks?`;
-    case "emoji":
-      return `What is the flag of ${country.name}?`;
-  }
-};
-
 const getOptions = (questionCode, country, countries) => {
   const falseOptions = sampleSize(
     reject(countries, { code: country.code }),
@@ -144,7 +129,8 @@ const App: React.FC = () => {
                 const questionCode = sample(quizSetup.selectedQuestions);
 
                 return {
-                  question: getQuestion(questionCode, country),
+                  country,
+                  questionCode,
                   options: getOptions(questionCode, country, data.countries)
                 };
               }
