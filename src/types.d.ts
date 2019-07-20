@@ -17,3 +17,16 @@ export interface QuizSetup {
   selectedCountries: Array<String>;
   selectedQuestions: Array<String>;
 }
+
+export interface Answer {
+  questionCode: "phone" | "continent" | "languages" | "currency" | "emoji";
+  country: FullCountry;
+  givenAnswer: {
+    name: string;
+    correct: boolean;
+  };
+  correctAnswer: {
+    name: string;
+    correct: true;
+  };
+}

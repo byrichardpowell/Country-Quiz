@@ -38,6 +38,8 @@ const Questions: React.FC<Props> = ({
       onSubmit={e => {
         e.preventDefault();
         didSubmit({
+          questionCode,
+          country,
           givenAnswer: options.find(option => option.name === answer.name),
           correctAnswer: options.find(option => option.correct === true)
         });
