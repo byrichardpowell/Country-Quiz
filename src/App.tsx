@@ -39,6 +39,7 @@ const appCss = css`
   color: ${Color.dark};
   padding: 0 20px 20px;
   height: 100%;
+  border: 10px solid ${Color.linen};
 `;
 
 const h1Css = css`

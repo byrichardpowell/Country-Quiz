@@ -1,4 +1,3 @@
-import { conditionalExpression } from "@babel/types";
 import { css } from "@emotion/core";
 
 export const Color = {
@@ -15,6 +14,8 @@ export const Universal = css`
   #root {
     min-height: 100%;
     height: 100%;
+    padding: 0;
+    margin: 0;
   }
   body {
     background: ${Color.linen};
