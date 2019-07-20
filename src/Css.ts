@@ -10,6 +10,12 @@ export const Color = {
 };
 
 export const Universal = css`
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    height: 100%;
+  }
   body {
     background: ${Color.linen};
   }
@@ -18,6 +24,10 @@ export const Universal = css`
   }
   form {
     padding: 10px 0 0;
+  }
+  h1 {
+    margin: 0;
+    padding: 20px 0 0;
   }
   fieldset {
     border-radius: 10px;

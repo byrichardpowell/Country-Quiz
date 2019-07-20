@@ -12,7 +12,9 @@ interface Props extends ShortCountries {
 }
 
 const listWrapperCss = css`
-  max-width: 280px;
+  width: 100%;
+  max-width: 400px;
+  height: 240px;
   position: relative;
 
   input[type="search"] {
@@ -32,12 +34,6 @@ const listWrapperCss = css`
 
   input[type="checkbox"] {
     margin-right: 5px;
-  }
-
-  .count {
-    position: absolute;
-    top: 15px;
-    right: 10px;
   }
 `;
 
@@ -66,7 +62,10 @@ const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
       }}
     >
       <fieldset>
-        <legend>Which countries should be in the quiz?</legend>
+        <legend>
+          Which countries?{" "}
+          <small>({`${selectedCountries.length} selected`})</small>
+        </legend>
         <div css={listWrapperCss}>
           <input
             type="search"
@@ -74,9 +73,6 @@ const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
             onChange={e => setSearch(e.target.value)}
             value={search}
           />
-          <small className="count">
-            {`${selectedCountries.length} selected`}
-          </small>
           <div css={countryWrapperCss}>
             {countries
               .filter(

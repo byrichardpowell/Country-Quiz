@@ -35,9 +35,10 @@ const GET_SHORT_COUNTRIES = gql`
 
 const appCss = css`
   font-family: "Courier";
-  background: ${Color.linen};
+  background: ${Color.white};
   color: ${Color.dark};
-  padding: 10px 20px;
+  padding: 0 20px 20px;
+  height: 100%;
 `;
 
 const h1Css = css`
@@ -118,7 +119,7 @@ const App: React.FC = () => {
     <div css={appCss}>
       <Global styles={Universal} />
       <h1 css={h1Css}>A Country Quiz</h1>
-      <p>Test your knowledge of countries</p>
+      <p>Test your country knowledge.</p>
       {!quizSetup ? (
         <Query<ShortCountries> query={GET_SHORT_COUNTRIES} client={client}>
           {({ loading, error, data }) => {

@@ -24,7 +24,7 @@ const getScoreOutro = (percentCorrect: number): string => {
   } else if (percentCorrect > 0.5) {
     return "That's pretty good.";
   } else if (percentCorrect > 0.3) {
-    return "Not bad.  But could be better.";
+    return "Not bad.  Could be better.";
   } else {
     return "Better luck next time.";
   }
@@ -39,9 +39,9 @@ const Results: React.FC<Props> = ({ answers }) => {
   return (
     <div>
       <h2>{getIntro(percentCorrect)}</h2>
-      <p>{`You got ${correctAnswerCount} out of ${
-        answers.length
-      }. ${getScoreOutro(percentCorrect)}`}</p>
+      <p>{`${correctAnswerCount} out of ${answers.length}. ${getScoreOutro(
+        percentCorrect
+      )}`}</p>
       <ol>
         {answers.map(answer => {
           return <Result {...answer} />;
