@@ -89,6 +89,7 @@ const QuizSetup: React.FC<Props> = ({ countries, didSetupQuiz }) => {
                 return (
                   <Selector
                     {...country}
+                    key={country.code}
                     onSelect={code => {
                       setSelectedCountries([...selectedCountries, ...[code]]);
                     }}
