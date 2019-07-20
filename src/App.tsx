@@ -7,7 +7,7 @@ import { ShortCountries, FullCountries } from "./types";
 import { Color, Universal } from "./Css";
 import Questions from "./Questions";
 import Results from "./Results";
-import { isString, shuffle, sample, sampleSize, reject } from "lodash";
+import { isString, isObject, shuffle, sample, sampleSize, find } from "lodash";
 /** @jsx jsx */
 import { Global, jsx, css } from "@emotion/core";
 
@@ -69,24 +69,34 @@ const getLongCountriesQuery = (quizSetup): String => {
   `;
 };
 
-const getOptions = (questionCode, country, countries) => {
-  const falseOptions = sampleSize(
-    reject(countries, { code: country.code }),
-    3
-  ).map(index => {
-    const option = sample(countries)[questionCode];
-    return {
-      ...(isString(option) ? { name: option } : option),
-      correct: false
-    };
-  });
+const getOptions = (questionCode, questionCountry, countries) => {
+  const falseOptions = countries.reduce((options, country) => {
+    const questionCountryOption = isString(questionCountry[questionCode])
+      ? questionCountry[questionCode]
+      : questionCountry[questionCode].name;
+
+    const thisCountryOption = isString(country[questionCode])
+      ? country[questionCode]
+      : country[questionCode].name;
+
+    if (questionCountryOption !== thisCountryOption) {
+      if (isObject(find(options, ["name", thisCountryOption])) === false) {
+        options.push({
+          name: thisCountryOption,
+          correct: false
+        });
+      }
+    }
+    return options;
+  }, []);
+
   const trueOption = {
     correct: true,
-    name: isString(country[questionCode])
-      ? country[questionCode]
-      : country[questionCode].name
+    name: isString(questionCountry[questionCode])
+      ? questionCountry[questionCode]
+      : questionCountry[questionCode].name
   };
-  return shuffle([...falseOptions, ...[trueOption]]);
+  return shuffle([...sampleSize(falseOptions, 3), ...[trueOption]]);
 };
 
 const App: React.FC = () => {

@@ -1,11 +1,11 @@
 import React from "react";
 import { Answer } from "../types";
 
-const getAnswerIntro = (correctAnswer, givenAnswer) => {
+const getAnswerIntro = (correctAnswer, givenAnswer): string => {
   return correctAnswer.name === givenAnswer.name ? "Correct" : "Sorry";
 };
 
-const getAnswerText = (questionCode, country, correctAnswer) => {
+const getAnswerText = (questionCode, country, correctAnswer): string => {
   switch (questionCode) {
     case "phone":
       return `${correctAnswer.name} is the international dialing code for ${
@@ -24,10 +24,11 @@ const getAnswerText = (questionCode, country, correctAnswer) => {
   }
 };
 
-const getAnswerOutro = (correctAnswer, givenAnswer) => {
+const getAnswerOutro = (correctAnswer, givenAnswer): string => {
   if (correctAnswer.name !== givenAnswer.name) {
     return `not ${givenAnswer.name}`;
   }
+  return "";
 };
 
 const Result: React.FC<Answer> = ({

@@ -1,12 +1,12 @@
 import React from "react";
 import Result from "./Result";
-import { FullCountry, Answer } from "../types";
+import { Answer } from "../types";
 
 interface Props {
   answers: Array<Answer>;
 }
 
-const getIntro = percentCorrect => {
+const getIntro = (percentCorrect: number): string => {
   if (percentCorrect === 1) {
     return "Amazing! Congratulations! Perfecto!";
   } else if (percentCorrect > 0.5) {
@@ -18,7 +18,7 @@ const getIntro = percentCorrect => {
   }
 };
 
-const getScoreOutro = percentCorrect => {
+const getScoreOutro = (percentCorrect: number): string => {
   if (percentCorrect === 1) {
     return "Amazing job.  You're a real expert";
   } else if (percentCorrect > 0.5) {
