@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/country-quiz/static/js/main.a33368bb.chunk.js",
-    "main.js.map": "/country-quiz/static/js/main.a33368bb.chunk.js.map",
-    "runtime~main.js": "/country-quiz/static/js/runtime~main.76960bbc.js",
-    "runtime~main.js.map": "/country-quiz/static/js/runtime~main.76960bbc.js.map",
-    "static/js/2.606ed7f3.chunk.js": "/country-quiz/static/js/2.606ed7f3.chunk.js",
-    "static/js/2.606ed7f3.chunk.js.map": "/country-quiz/static/js/2.606ed7f3.chunk.js.map",
-    "index.html": "/country-quiz/index.html",
-    "precache-manifest.5324507f4d1c9498378a48850951d401.js": "/country-quiz/precache-manifest.5324507f4d1c9498378a48850951d401.js",
-    "service-worker.js": "/country-quiz/service-worker.js"
+    "main.js": "/Country-Quiz/static/js/main.7e3c038a.chunk.js",
+    "main.js.map": "/Country-Quiz/static/js/main.7e3c038a.chunk.js.map",
+    "runtime~main.js": "/Country-Quiz/static/js/runtime~main.f97c6210.js",
+    "runtime~main.js.map": "/Country-Quiz/static/js/runtime~main.f97c6210.js.map",
+    "static/js/2.606ed7f3.chunk.js": "/Country-Quiz/static/js/2.606ed7f3.chunk.js",
+    "static/js/2.606ed7f3.chunk.js.map": "/Country-Quiz/static/js/2.606ed7f3.chunk.js.map",
+    "index.html": "/Country-Quiz/index.html",
+    "precache-manifest.6250c39c70ee18a1ec7e91c7eb057f39.js": "/Country-Quiz/precache-manifest.6250c39c70ee18a1ec7e91c7eb057f39.js",
+    "service-worker.js": "/Country-Quiz/service-worker.js"
   }
 }
