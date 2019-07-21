@@ -1,5 +1,26 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## What is this?
+
+A weekend hack project to build a country, language, continent and currency quiz.
+
+## Preview This App
+
+You can use this app at [https://byrichardpowell.github.io/Country-Quiz/](https://byrichardpowell.github.io/Country-Quiz/)
+
+Note the GraphQL API that powers this is free, so you may some intermitant outages.
+
+## What Technologies
+
+- Create React App
+- Typescript
+- Apollo
+- EmotionJS
+
+The app is powered by a free [graphQL API on countries, continents, and languages](https://github.com/trevorblades/countries).
+
+---
+
 ## Available Scripts
 
 In the project directory, you can run:
